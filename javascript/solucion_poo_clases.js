@@ -4,25 +4,27 @@
 //experto 99 minas 31x16
 // personlaizado
 
-const buscaMinas = {
-    posicionBombas: undefined,
-    inicio: () => {
+class BuscaMinas {
+    constructor() {
+        this.posicionBombas = undefined;
+    }
+    inicio() {
         buscaMinas.tableroHTML();
         buscaMinas.ubicacionAleatoriaBombas();
         buscaMinas.configurarBTN();
-    },
-    configurarBTN: () => {
+    }
+    configurarBTN() {
         $('td').click(buscaMinas.mostrarBombaHTML)
-    },
-    tableroHTML: () => {
+    }
+    tableroHTML() {
         for (let i = 0; i < 8; i++) {
             $('#tablero').append(`<tr id='fila${i}'>`);
             for (let j = 0; j < 8; j++) {
                 $('#fila' + i).append(`<td id='${i}-${j}'></td>`);
             }
         }
-    },
-    ubicacionAleatoriaBombas: () => {
+    }
+    ubicacionAleatoriaBombas() {
         Array.prototype.unique = function(a) {
             return function() {
                 return this.filter(a)
@@ -46,12 +48,12 @@ const buscaMinas = {
             }
             if (posicion.unique().length == 10) {
                 bandera = false;
-                buscaMinas.posicionBombas = posicion;
+                this.posicionBombas = posicion;
             }
         }
-        console.log(buscaMinas.posicionBombas)
-    },
-    mostrarBombaHTML: (event) => {
+        console.log(this.posicionBombas)
+    }
+    mostrarBombaHTML(event) {
         let indiceBomba = event.target.id;
         //console.log(indiceBomba)
         let hayBomba = buscaMinas.buscarBomba(indiceBomba)
@@ -63,18 +65,18 @@ const buscaMinas = {
                 let nroBombas = buscaMinas.buscarBombaAlrededor(indiceBomba);
             }
         }
-    },
-    buscarBomba: (indiceBomba) => {
+    }
+    buscarBomba(indiceBomba) {
         let existe = undefined;
         let x = buscaMinas.posicionBombas.filter((value) => {
             return (value == indiceBomba);
         });
         (x.length) ? existe = true: existe = false;
         return existe;
-    },
-    buscarBombaAlrededor: (indiceBomba) => {
+    }
+    buscarBombaAlrededor(indiceBomba) {
         let posicionesAlrededor = [
-            [-1, -1], // arriba izquierda
+            [-1 - 1], // arriba izquierda
             [-1, 0], // arriba dentro
             [-1, 1], //arriba derecha
             [0, -1], //izquierda
@@ -99,4 +101,6 @@ const buscaMinas = {
         $('td#' + indiceBomba).html(nroBombas + "");
     }
 }
-$(document).ready(buscaMinas.inicio)
+let buscaMinas = new BuscaMinas();
+buscaMinas.inicio();
+//$(document).ready(buscaMinas.inicio)
