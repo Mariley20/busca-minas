@@ -19,7 +19,7 @@ const buscaMinas = {
         for (let i = 0; i < 8; i++) {
             $('#tablero').append(`<tr id='fila${i}'>`);
             for (let j = 0; j < 8; j++) {
-                $('#fila' + i).append(`<td id='${i},${j}'>${i},${j}</td>`);
+                $('#fila' + i).append(`<td id='${i}-${j}'>${i},${j}</td>`);
             }
         }
     },
@@ -41,7 +41,7 @@ const buscaMinas = {
             }
             for (let j = 0; j < nroAleatorio.length; j++) {
                 if (nroAleatorio[j + 1] != undefined) {
-                    let num = nroAleatorio[j] + ',' + nroAleatorio[j + 1];
+                    let num = nroAleatorio[j] + '-' + nroAleatorio[j + 1];
                     posicion.push(num);
                 }
             }
@@ -54,18 +54,35 @@ const buscaMinas = {
     },
     mostrarBombaHTML:(event) =>{
         let indiceBomba = event.target.id;
-        let hayBomba = buscaMinas.buscarBomba(indiceBomba)
-        console.log(indiceBomba);
-        //$('#'+buscaMinas.posicionBombas[indiceBomba]).append(`<i class="fa fa-bomb" aria-hidden="true"></i>`);
+        let hayBomba = buscaMinas.buscarBomba(indiceBomba) 
+        console.log(hayBomba);
+        if(hayBomba){
+            console.log(hayBomba+".."+indiceBomba);
+            console.log($("td #3-4"))
+            $('td#'+indiceBomba).append(`<i class="fa fa-bomb" aria-hidden="true"></i>`);
+        }else{
+            let nroBombas = buscaMinas.buscarBombaAlrededor(indiceBomba);
+        }
     },
     buscarBomba: (indiceBomba) => {
-        buscaMinas.posicionBombas.filter((i) =>{
-            if(buscaMinas.posicionBombas[i] == indiceBomba){
-                return true;
-            }else{
-                return false;
-            }
+        let existe = undefined;
+        let x = buscaMinas.posicionBombas.filter((value) =>{
+            return (value == indiceBomba);
         });
+        (x.length)? existe = true : existe = false;
+        return existe;
+    },
+    buscarBombaAlrededor: (indiceBomba) => {
+        let posicionesAlrededor = [
+            [-1, -1], [-1, 0], [-1, 1],  //arriba
+            [0, -1], [0, 1],  //centro
+            [1, -1], [1, 0], [1, 1] //abajo
+        ];
+        let indiceBombaArray = indiceBomba.split('-');
+        let actualX = indiceBombaArray[0];
+        let actualY = indiceBombaArray[1];
+        console.log(indiceBombaArray);
+        console.log(posicionesAlrededor)
     }
 }
 $(document).ready(buscaMinas.inicio)
