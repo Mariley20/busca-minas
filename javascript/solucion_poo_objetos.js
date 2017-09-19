@@ -6,6 +6,7 @@
 
 const buscaMinas = {
     posicionBombas: undefined,
+
     inicio: () => {
         buscaMinas.tableroHTML();
         buscaMinas.ubicacionAleatoriaBombas();
