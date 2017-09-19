@@ -1,9 +1,8 @@
 'use strict'
-//mover(0, 1); // derecha
-//mover(0, -1);  //izquierda
-//mover(1, 0);//abajo
-//mover(-1, 0); //moverse arriba
-
+// principiante 10 minas y 8x8
+// intermedio 40 minas 16x16
+//experto 99 minas 31x16
+// personlaizado
 
 const buscaMinas = {
     posicionBombas: undefined,
@@ -59,6 +58,7 @@ const buscaMinas = {
         if (indiceBomba != "") {
             if (hayBomba) {
                 $('td#' + indiceBomba).append(`<i class="fa fa-bomb fa-lg" aria-hidden="true"></i>`);
+                //perdiste juego
             } else {
                 let nroBombas = buscaMinas.buscarBombaAlrededor(indiceBomba);
             }
@@ -95,6 +95,7 @@ const buscaMinas = {
                 nroBombas += 1;
             }
         }
+        //nroBombas = 0 aparecer las de su contorno
         $('td#' + indiceBomba).html(nroBombas + "");
     }
 }
