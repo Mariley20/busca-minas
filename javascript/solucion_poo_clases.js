@@ -23,11 +23,11 @@ const buscaMinas = {
         }
     },
     ubicacionAleatoriaBombas: () => {
-        Array.prototype.unique = function (a) {
-            return function () {
+        Array.prototype.unique = function(a) {
+            return function() {
                 return this.filter(a)
             }
-        }(function (a, b, c) {
+        }(function(a, b, c) {
             return c.indexOf(a, b + 1) < 0
         });
         let bandera = true;
@@ -75,13 +75,13 @@ const buscaMinas = {
     buscarBombaAlrededor: (indiceBomba) => {
         let posicionesAlrededor = [
             [-1, -1], // arriba izquierda
-            [-1, 0],  // arriba dentro
-            [-1, 1],  //arriba derecha
-            [0, -1],  //izquierda
-            [0, 1],   //derecha
-            [1, -1],  //abajo Inquierda
-            [1, 0],   //abajo centro
-            [1, 1]    //abajo derecha
+            [-1, 0], // arriba dentro
+            [-1, 1], //arriba derecha
+            [0, -1], //izquierda
+            [0, 1], //derecha
+            [1, -1], //abajo Inquierda
+            [1, 0], //abajo centro
+            [1, 1] //abajo derecha
         ];
         let indiceBombaArray = indiceBomba.split('-');
         let actualX = parseInt(indiceBombaArray[0]);
