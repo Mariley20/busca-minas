@@ -19,7 +19,7 @@ const buscaMinas = {
         for (let i = 0; i < 8; i++) {
             $('#tablero').append(`<tr id='fila${i}'>`);
             for (let j = 0; j < 8; j++) {
-                $('#fila' + i).append(`<td id='${i}-${j}'>${i},${j}</td>`);
+                $('#fila' + i).append(`<td id='${i}-${j}'></td>`);
             }
         }
     },
@@ -79,10 +79,20 @@ const buscaMinas = {
             [1, -1], [1, 0], [1, 1] //abajo
         ];
         let indiceBombaArray = indiceBomba.split('-');
-        let actualX = indiceBombaArray[0];
-        let actualY = indiceBombaArray[1];
-        console.log(indiceBombaArray);
-        console.log(posicionesAlrededor)
+        let actualX = parseInt(indiceBombaArray[0]);
+        let actualY = parseInt(indiceBombaArray[1]);
+        let nroBombas = 0;
+        //console.log(indiceBombaArray);
+        console.log(posicionesAlrededor[1][0])
+        for(let i = 0; i < posicionesAlrededor.length; i++){
+            let posicionX = (actualX + posicionesAlrededor[i][0]);
+            let posicionY = (actualY + posicionesAlrededor[i][1]);
+            let comprobarBomba = buscaMinas.buscarBomba(posicionX+"-"+posicionY);
+            if(comprobarBomba){
+                nroBombas += 1;
+            }  
+        }
+        $('td#'+indiceBomba).html(nroBombas+"");
     }
 }
 $(document).ready(buscaMinas.inicio)
