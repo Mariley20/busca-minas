@@ -2,7 +2,7 @@
 // intermedio 40 minas 16x16
 //experto 99 minas 31x16
 // personlaizado
-let posicionBombas;
+let posicionBombas = [];
 
 tableroHTML(); //dibuja el tablero
 ubicacionAleatoriaBombas(); // determina las ubicacion aleatoriade bombas
@@ -31,8 +31,8 @@ function ubicacionAleatoriaBombas() {
     });
     let bandera = true;
     while (bandera) {
+        posicionBombas = [];
         let nroAleatorio = [];
-        let posicion = [];
         for (let i = 0; i < 11; i++) {
             let num = Math.floor((Math.random() * 8));
             nroAleatorio.push(num);
@@ -40,12 +40,11 @@ function ubicacionAleatoriaBombas() {
         for (let j = 0; j < nroAleatorio.length; j++) {
             if (nroAleatorio[j + 1] != undefined) {
                 let num = nroAleatorio[j] + '-' + nroAleatorio[j + 1];
-                posicion.push(num);
+                posicionBombas.push(num);
             }
         }
-        if (posicion.unique().length == 10) {
+        if (posicionBombas.unique().length == 10) {
             bandera = false;
-            posicionBombas = posicion;
         }
     }
     console.log(posicionBombas)
@@ -58,7 +57,7 @@ function mostrarBombaHTML(event) {
     if (indiceBomba != "") {
         if (hayBomba) {
             $('td#' + indiceBomba).append(`<i class="fa fa-bomb fa-lg" aria-hidden="true"></i>`);
-            //perdiste juego
+            //perdiste juego falta implementar
         } else {
             let nroBombas = buscarBombaAlrededor(indiceBomba);
         }
@@ -97,6 +96,6 @@ function buscarBombaAlrededor(indiceBomba) {
             nroBombas += 1;
         }
     }
-    //nroBombas = 0 aparecer las de su contorno
+    //nroBombas = 0 debe aparecer los numeros de su contorno
     $('td#' + indiceBomba).html(nroBombas + "");
 }
